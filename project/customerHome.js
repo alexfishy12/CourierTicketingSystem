@@ -1,5 +1,6 @@
 const username = getCookie('username');
 const fullName = getCookie('fullName');
+var inventory;
 
 $(document).ready(function(){
     if (username == "")
@@ -12,28 +13,32 @@ $(document).ready(function(){
     }
 
     getInventory().done(function(response){
+        inventory = response;
         console.log(response);
-        console.log(response.jsonData['name']);
-        for(var key in response.jsonData){
-            for(var key1 in response.jsonData[key])
-            {
-                console.log(response.jsonData[key][key1]);
-            }
-        }
+        populateItemOptions();
     });
-
+    
     $("#createTicket").submit(function(e){
         e.preventDefault();
         getFormDetails();
     });
 });
 
+function populateItemOptions()
+{
+    jQuery.each(inventory, function(){
+        $("#itemName").append("<option value='" + this.inv_id + "'>"+this.name+"</option>");
+        console.log(this.inv_id + " is " + this.name);
+    });
+}
+
 function getFormDetails()
 {
-    const itemName = $("#itemName");
-    const quantity = $("#quantity");
+    var inv_id = $("#itemName").val();
+    var quantity = $("#quantity").val();
 
-    submitTicket(itemName, quantity).done(function(response){
+    submitTicket(inv_id, quantity).done(function(response){
+        console.log(response);
         if(response.includes("ERROR"))
         {
             $("#submitMessage").text(response);
@@ -41,17 +46,18 @@ function getFormDetails()
     });
 }
 
-function submitTicket(itemName, quantity){
+function submitTicket(inv_id, quantity){
     console.log('submitTicket function executing...');
-    console.log('username: ' +username + " itemName: " + itemName + " quantity: " + quantity);
+    console.log('username: ' +username + " inv_id: " + inv_id + " quantity: " + quantity);
     //use jQuery PLEASE    
     return $.ajax({
         url: 'submitTicket.php',
         dataType: 'text',
         type: 'POST',
-        data: {itemName: itemName, quantity: quantity, username: username},
+        data: {inv_id: inv_id, quantity: quantity, username: username},
         success: function (response, status) {
             console.log('AJAX Success.');
+            console.log(status);
             return response;
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
