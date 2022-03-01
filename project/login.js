@@ -1,7 +1,19 @@
+var loginType = "c";
 $(document).ready(function(){
     $("#signIn").submit(function(e){
         e.preventDefault();
         getFormDetails();
+    });
+
+    $("#cust").click(function(){
+        $("#cust").attr("class", "col btn-dark btn-lg");
+        $("#emp").attr("class", "col btn-muted btn-lg");
+        loginType = "c";
+    });
+    $("#emp").click(function(){
+        $("#emp").attr("class", "col btn-dark btn-lg");
+        $("#cust").attr("class", "col btn-muted btn-lg");
+        loginType = "e";
     });
 });
 
