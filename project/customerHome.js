@@ -13,6 +13,13 @@ $(document).ready(function(){
 
     getInventory().done(function(response){
         console.log(response);
+        console.log(response.jsonData['name']);
+        for(var key in response.jsonData){
+            for(var key1 in response.jsonData[key])
+            {
+                console.log(response.jsonData[key][key1]);
+            }
+        }
     });
 
     $("#createTicket").submit(function(e){

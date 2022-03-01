@@ -6,7 +6,7 @@
 
     $getInventory = "select inv_id, name from Inventory";
 
-    $result = mysqli_query($getInventory, $con);
+    $result = mysqli_query($con, $getInventory);
 
     if($result)
     {
