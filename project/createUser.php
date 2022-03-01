@@ -5,7 +5,7 @@
     $con = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname) or die("Could not connect to the database.");
 
     //insert statement
-    $sql = "insert into Customers (user_name, first_name, last_name, email, password, street, state, city, zipcode) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    $sql = "insert into Customers (user_name, first_name, last_name, email, password, street, state, city, zipcode, date_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW());";
 
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
