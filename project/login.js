@@ -1,53 +1,52 @@
 $(document).ready(function(){
-    $("#createAccount").submit(function(e){
+    $("#signIn").submit(function(e){
         e.preventDefault();
         getFormDetails();
     });
 });
 
 function getFormDetails(){
-    const fName = $("#fName").val();
-    const lName = $("#lName").val();
-    const email = $("#email").val();
     const username = $("#username").val();
     const password = $("#password").val();
-    const address = $("#address").val();
-    const city = $("#city").val();
-    const state = $("#state").val();
-    const zipcode = $("#zipcode").val();
 
-    createAccount(fName, lName, email, username, password, address, city, state, zipcode).done(function(response){
+    checkLogin(username, password).done(function(response){
         if (response.includes("ERROR"))
         {
-            $('#createMessage').show();
-            $('#createMessage').text(response);
+            console.log(response);
+            $('#message').show();
+            $('#message').text(response);
         }
         else
         {
-            $('#createAccount').html("Account created! Welcome, "+ fName);
+            response = response.split(',');
             
             //expiration for cookie
             const d = new Date();
             d.setTime(d.getTime() + (60*60*1000));
             let expiration = d.toLocaleString();
+
+            //set full name cookie
+            const fullName = response[0] + " " + response[1];
+            document.cookie = "fullName=" + fullName + "; expires=" + expiration + ";path=/";
+
+            //welcome message
+            $('#container').html("<h1 class='display-5'>Welcome, "+ fullName + ".</h1>");
+            
             // set username cookie
             document.cookie = "username=" + username + "; expires=" + expiration + ";path=/";
-            // set full name cookie
-            const fullName = fName + " " + lName;
-            document.cookie = "fullName=" + fullName + "; expires=" + expiration + ";path=/";
             sleep(2000).then(() => goHome());
         }
     });;
 }
 
-function createAccount(fn, ln, e, u, p, a, c, s, z){
-    console.log('createAccount function executing...');
+function checkLogin(username, password){
+    console.log('checkLogin function executing...');
     //use jQuery PLEASE    
     return $.ajax({
-        url: 'createUser.php',
+        url: 'login.php',
         dataType: 'text',
         type: 'POST',
-        data: {fname: fn, lname: ln, email: e, username: u, password: p, address: a, city: c, state: s, zipcode: z},
+        data: {username: username, password: password},
         success: function (response, status) {
             console.log('AJAX Success.');
             return response;
