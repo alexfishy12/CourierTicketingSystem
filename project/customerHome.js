@@ -14,7 +14,7 @@ $(document).ready(function(){
 
     getInventory().done(function(response){
         inventory = response;
-        console.log(response)
+        console.log(response);
         populateItemOptions();
     });
     
