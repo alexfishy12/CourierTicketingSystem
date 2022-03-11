@@ -16,7 +16,28 @@ function getFormDetails(){
     const state = $("#state").val();
     const zipcode = $("#zipcode").val();
 
-    createAccount(fName, lName, email, username, password, address, city, state, zipcode);
+    createAccount(fName, lName, email, username, password, address, city, state, zipcode).done(function(response){
+        if (response.includes("ERROR"))
+        {
+            $('#createMessage').show();
+            $('#createMessage').text(response);
+        }
+        else
+        {
+            $('#createAccount').html("Account created! Welcome, "+ fName);
+            
+            //expiration for cookie
+            const d = new Date();
+            d.setTime(d.getTime() + (60*60*1000));
+            let expiration = d.toLocaleString();
+            // set username cookie
+            document.cookie = "username=" + username + "; expires=" + expiration + ";path=/";
+            // set full name cookie
+            const fullName = fName + " " + lName;
+            document.cookie = "fullName=" + fullName + "; expires=" + expiration + ";path=/";
+            sleep(2000).then(() => goHome());
+        }
+    });;
 }
 
 function createAccount(fn, ln, e, u, p, a, c, s, z){
@@ -41,4 +62,8 @@ function createAccount(fn, ln, e, u, p, a, c, s, z){
 function goHome()
 {
     window.location.replace("http://localhost/CPS4961/customerHome.html");
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
