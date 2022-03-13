@@ -1,19 +1,10 @@
-var loginType = "c";
+
+var isChecked = null;
+
 $(document).ready(function(){
     $("#signIn").submit(function(e){
         e.preventDefault();
         getFormDetails();
-    });
-
-    $("#cust").click(function(){
-        $("#cust").attr("class", "col btn-dark btn-lg");
-        $("#emp").attr("class", "col btn-muted btn-lg");
-        loginType = "c";
-    });
-    $("#emp").click(function(){
-        $("#emp").attr("class", "col btn-dark btn-lg");
-        $("#cust").attr("class", "col btn-muted btn-lg");
-        loginType = "e";
     });
 });
 
@@ -46,12 +37,47 @@ function getFormDetails(){
             
             // set username cookie
             document.cookie = "username=" + username + "; expires=" + expiration + ";path=/";
-            sleep(2000).then(() => goHome());
+
+            if(isChecked == "C"){
+
+
+            sleep(2000).then(() => goHomeC());
+            }else if(isChecked == "E"){
+
+                sleep(2000).then(() => goHomeE());
+
+            }
         }
     });;
 }
 
+
+function checkEmp(){
+    isChecked = "E";
+    $("#emp").attr("class", "col btn-dark btn-lg");
+    $("#cust").attr("class", "col btn-muted btn-lg");
+console.log(isChecked);
+
+
+}
+function checkCust(){
+    isChecked = "C";
+    $("#cust").attr("class", "col btn-dark btn-lg");
+    $("#emp").attr("class", "col btn-muted btn-lg");
+    console.log(isChecked);
+    
+    
+    }
+
+
+
+
 function checkLogin(username, password){
+    //if(isChecked == "null"){
+    //    alert("Please select an option!")
+
+   // } else 
+   if (isChecked == "C"){
     console.log('checkLogin function executing...');
     //use jQuery PLEASE    
     return $.ajax({
@@ -68,11 +94,37 @@ function checkLogin(username, password){
             return "Error " . textStatus;
         }
     });
-}
+}else if (isChecked == "E"){
+    console.log('checkLogin function executing...');
+    //use jQuery PLEASE    
+    return $.ajax({
+        url: 'loginE.php',
+        dataType: 'text',
+        type: 'POST',
+        data: {username: username, password: password},
+        success: function (response, status) {
+            console.log('AJAX Success.');
+            return response;
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log('AJAX Error:' + textStatus);
+            return "Error " . textStatus;
+        }
+    });
 
-function goHome()
+
+}else{
+    alert("please select a employee or customer!!")
+}
+}
+function goHomeC()
 {
     window.location.replace("http://localhost/CPS4961/customerHome.html");
+}
+
+function goHomeE()
+{
+    window.location.replace("http://localhost/CPS4961/employeeHome.html");
 }
 
 function sleep(ms) {

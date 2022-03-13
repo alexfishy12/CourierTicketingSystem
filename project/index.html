@@ -8,14 +8,15 @@
     <link href="login.css" rel="stylesheet" type="text/css"></link>
 </head>
 <title>Login</title>
-<body class="text-center bg-light">
-    <main class="form-signin bg-light rounded">
-        <h1 class="h3 mb-3 fw-normal">Courier Ticketing System</h1>
-        <div class="container bg-light" id="container">
-                <div class="row">
-                    <button class="col btn-dark btn-lg" id="cust">Customer</button>
-                    <button class="col btn-muted btn-lg" id="emp">Employee</button>
-                </div>
+<body class="text-center bg-secondary">
+    <div class="container p-0">
+        <div class="row">
+            <button class="col btn-secondary btn-lg" onclick="checkEmp()" id="emp">Employee</button>
+            <button class="col btn-secondary btn-lg" onclick="checkCust()"id="cust">Customer</button>
+        </div>
+        <main class="form-signin bg-light">
+            <h1 class="h3 mb-3 fw-normal">Courier Ticketing System</h1>
+            <div class="container" id="container">
                 <br>
                 <form id="signIn">
         
@@ -34,5 +35,6 @@
                 <a href="createAccount.html">Create Account</a>
             </div>
         </main>
+    </div>
 </body>
 </html>
