@@ -1,5 +1,5 @@
-var isChecked = null;
 
+var isChecked = null;
 
 $(document).ready(function(){
     $("#signIn").submit(function(e){
@@ -54,14 +54,16 @@ function getFormDetails(){
 
 function checkEmp(){
     isChecked = "E";
-
+    $("#emp").attr("class", "col btn-dark btn-lg");
+    $("#cust").attr("class", "col btn-muted btn-lg");
 console.log(isChecked);
 
 
 }
 function checkCust(){
     isChecked = "C";
-    
+    $("#cust").attr("class", "col btn-dark btn-lg");
+    $("#emp").attr("class", "col btn-muted btn-lg");
     console.log(isChecked);
     
     
@@ -76,7 +78,6 @@ function checkLogin(username, password){
 
    // } else 
    if (isChecked == "C"){
-
     console.log('checkLogin function executing...');
     //use jQuery PLEASE    
     return $.ajax({
@@ -87,7 +88,6 @@ function checkLogin(username, password){
         success: function (response, status) {
             console.log('AJAX Success.');
             return response;
-            
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log('AJAX Error:' + textStatus);
@@ -126,7 +126,6 @@ function goHomeE()
 {
     window.location.replace("http://localhost/CPS4961/employeeHome.html");
 }
-
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
