@@ -25,7 +25,7 @@ function getFormDetails(){
         else
         {
             $('#createAccount').html("Account created! Welcome, "+ fName);
-            
+            console.log("USER ID: " + response);
             //expiration for cookie
             const d = new Date();
             d.setTime(d.getTime() + (60*60*1000));
@@ -35,9 +35,15 @@ function getFormDetails(){
             // set full name cookie
             const fullName = fName + " " + lName;
             document.cookie = "fullName=" + fullName + "; expires=" + expiration + ";path=/";
+             // set userType cookie
+             document.cookie = "userType=C; expires=" + expiration + ";path=/";
+             // set user id cookie
+             const userID = response;
+             document.cookie = "userID=" + userID + "; expires=" + expiration + ";path=/";
+
             sleep(2000).then(() => goHome());
         }
-    });;
+    });
 }
 
 function createAccount(fn, ln, e, u, p, a, c, s, z){

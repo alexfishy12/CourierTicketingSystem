@@ -40,7 +40,21 @@
                     $stmt->bind_param("sssssssss", $username, $fname, $lname, $email, $password, $address, $state, $city, $zipcode);
                     $stmt->execute();
                     $result = $stmt->get_result();
-                    echo "Account creation successful.";
+
+                    
+                    $result2 = mysqli_query($con, "select c_id from Customers where user_name='$username'");
+                    if ($result2)
+                    {
+                        while($row=mysqli_fetch_array($result2))
+                        {
+                            $userID = $row['c_id'];
+                            echo $userID;
+                        }
+                    }
+                    else
+                    {
+                        echo mysqli_error($con);
+                    }
                 }
                 else
                 {
