@@ -1,5 +1,7 @@
 const username = getCookie('username');
 const fullName = getCookie('fullName');
+const userType = getCookie('userType');
+const userID   = getCookie('userID');
 var inventory;
 
 $(document).ready(function(){
@@ -17,10 +19,14 @@ $(document).ready(function(){
         console.log(response);
         populateItemOptions();
     });
+
+    generateList(userType, userID);
     
     $("#createTicket").submit(function(e){
         e.preventDefault();
         getFormDetails();
+        $("#createTicketModal").modal('hide');
+        $("#createTicket").reset();
     });
 });
 
@@ -42,6 +48,11 @@ function getFormDetails()
         if(response.includes("ERROR"))
         {
             $("#submitMessage").text(response);
+        }
+        else
+        {
+            generateList(userType, userID);
+            $("#submitMessage").text("Ticket submitted!");
         }
     });
 }
@@ -84,6 +95,8 @@ function getInventory(){
         }
     });
 }
+
+
 
 function getCookie(cname) {
     let name = cname + "=";
