@@ -38,7 +38,8 @@ function generateList(userType, userID)
                                 "<div class='accordion-body'>" + 
                                     "<div class='row'>" + 
                                         "<div class='col'>" + 
-                                            "<svg id='my_dataviz' width='440' height='300'></svg>" + 
+                                            //"<svg id='my_dataviz' width='440' height='300'></svg> +"
+                                             "<div id='map'></div>" +
                                         "</div>" + 
                                         "<div class='col'>" +
                                             "<div class='row row-cols-2'>" + 
@@ -92,7 +93,8 @@ function generateList(userType, userID)
                     {
                         closedCount++;
                     }
-                    generateMap();
+                    //generateMap();
+                    initMap();
                 });
                 $("#allTicketsCount").text(count);
                 $("#openTicketsCount").text(openCount);
@@ -141,7 +143,7 @@ function getTicketStatus(userType, userID)
         }
     });
 }
-
+/*
 function generateMap(){
     // The svg
     const svg = d3.select("svg"),
@@ -180,4 +182,5 @@ function generateMap(){
           .style("stroke", "orange")
           .style("stroke-width", 7)
     })
-}
+} */
+

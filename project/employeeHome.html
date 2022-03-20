@@ -6,27 +6,28 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="ticketList.js"></script>
     <script src="employeeHome.js"></script>
+    <script src="maps.js"></script>
     <script src="https://d3js.org/d3.v6.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css"></link>
 </head>
-<title>Customer Home</title>
+<title>EmployeeHome Home</title>
 <body class="text-center">
         <a href="index.html">Sign out</a>
         <h1 class="display-3" id="welcome"></h1>
         <div class="container">
-            <br>
+            <!-- Button trigger modal -->
             <div class="row row-cols-3">
                 <div class="col border border-3 text-left">
                     <strong>Your tickets</strong>
-                    <div class="display-4">10</div>
+                    <div class="display-4" id="allTicketsCount">0</div>
                 </div>
                 <div class="col border border-3">
                     <strong>Open tickets</strong>
-                    <div class="display-4">3</div>
+                    <div class="display-4" id="openTicketsCount">0</div>
                 </div>
                 <div class="col border border-3 text-right">
                     <strong>Closed tickets</strong>
-                    <div class="display-4">7</div>
+                    <div class="display-4" id="closedTicketsCount">0</div>
                 </div>
             </div>
             <div class="row row-cols-5 text-left">
@@ -36,7 +37,11 @@
                 <div class="col border border-3">Status</div>
                 <div class="col border border-3">Destination</div>
             </div>
-            <div id="list"></div>
+
+            <!-- ticket list -->
+            <div id="list">
+            </div> <!-- end of list-->
+
         </div>
     </body>
 </html>

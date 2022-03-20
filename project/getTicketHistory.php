@@ -13,7 +13,7 @@
     {
         $getTicketHistory = "select s.s_id, s.t_id, s.closed_time, s.event, CONCAT(s.city, ', ', s.state) as location from TicketStatusHistory s left join Tickets t on t.t_id=s.t_id where t.c_id=?";
     }
-    else
+    elseif($userType == "E")
     {
         $getTicketHistory = "select s.s_id, s.t_id, s.closed_time, s.event, CONCAT(s.city, ', ', s.state) as location from TicketStatusHistory s left join Tickets t on t.t_id=s.t_id where t.emp_id=?";
     }
