@@ -37,10 +37,9 @@ function generateList(userType, userID)
                             "<div id='collapse" + count + "' class='accordion-collapse collapse' aria-labelledby='heading" + count + "' data-bs-parent='#ticketList'>" +
                                 "<div class='accordion-body'>" + 
                                     "<div class='row'>" + 
-                                        "<div class='col'>"  /*+ 
-                                            "<svg id='my_dataviz' width='440' height='300'></svg>"
-                                             + */
-                                             + "<div id='map'></div>" +
+                                        "<div class='col'>" + 
+                                            //"<svg id='my_dataviz' width='440' height='300'></svg> +"
+                                             "<div id='map'></div>" +
                                         "</div>" + 
                                         "<div class='col'>" +
                                             "<div class='row row-cols-2'>" + 
@@ -184,3 +183,4 @@ function generateMap(){
           .style("stroke-width", 7)
     })
 } */
+
