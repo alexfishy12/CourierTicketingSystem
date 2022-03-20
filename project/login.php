@@ -47,8 +47,9 @@
                             {
                                 $fname = $row['first_name'];
                                 $lname = $row['last_name'];
+                                $c_id  = $row['c_id'];
                             }
-                            echo "$fname,$lname";                        
+                            echo "$fname,$lname,$c_id";                        
                         }
                         else
                         {
