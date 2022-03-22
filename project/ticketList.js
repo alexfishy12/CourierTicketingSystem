@@ -40,12 +40,8 @@ function generateList(userType, userID)
                                     "</div><br>" +
                                     "<div class='row'>" + 
                                         "<div class='col'>" + 
-<<<<<<< Updated upstream
-                                            "<svg id='my_dataviz' width='440' height='300'></svg>" + 
-=======
                                              //"<svg id='my_dataviz' width='440' height='300'></svg> +"
                                              "<div id='map'></div>" +
->>>>>>> Stashed changes
                                         "</div>" + 
                                         "<div class='col'>" +
                                             "<div class='row row-cols-2'>" + 
@@ -98,9 +94,6 @@ function generateList(userType, userID)
                     {
                         closedCount++;
                     }
-<<<<<<< Updated upstream
-                    generateMap();
-=======
 
                     //if employee is logged in, show update buttons
                     if (userType == "E")
@@ -152,7 +145,6 @@ function generateList(userType, userID)
                     //generateMap();
                     var mapDest = this.city + ", " + this.state;
                     initMap();
->>>>>>> Stashed changes
                 });
                 $("#allTicketsCount").text(count);
                 $("#openTicketsCount").text(openCount);
@@ -201,7 +193,7 @@ function getTicketStatus(userType, userID)
         }
     });
 }
-
+/*
 function generateMap(){
     // The svg
     const svg = d3.select("svg"),
@@ -240,4 +232,5 @@ function generateMap(){
           .style("stroke", "orange")
           .style("stroke-width", 7)
     })
-}
+} */
+
