@@ -26,19 +26,26 @@ function generateList(userType, userID)
                 var closedCount = 0;
                 jQuery.each(tickets, function(){
                     $("#ticketList").append("<div class='accordion-item px-0'>" +
-                            "<h2 class='accordion-header row row-cols-5 text-left px-0' id='heading" + count +"'>" + 
-                            "<button class='accordion-button p-0 dropdown-toggle' type='button' data-bs-toggle='collapse' data-bs-target='#collapse" + count +"' aria-expanded='true' aria-controls='collapse" + count + "'>" +
-                                "<div class='col border border-3'>" + this.t_id + "</div>" +
-                                "<div class='col border border-3'>" + this.itemName + "</div>" +
-                                "<div class='col border border-3'>" + this.create_time + "</div>" +
-                                "<div class='col border border-3'>" + this.status + "</div>" +
-                                "<div class='col border border-3'>" + this.city + ", " + this.state + "</div>" +
+                            "<h2 class='accordion-header row row-cols-5 text-center my-0' id='heading" + this.t_id +"'>" + 
+                            "<button class='accordion-button collapsed dropdown-toggle py-2 px-0 border border-3 border-border-start-2 border-end-2 border-top-0 border-bottom-2' type='button' data-bs-toggle='collapse' data-bs-target='#collapse" + this.t_id +"' aria-expanded='false' aria-controls='collapse" + count + "'>" +
+                                "<div class='col border border-2 border-end-5 border-top-0 border-bottom-0 border-start-0 text-center'>" + this.t_id + "</div>" +
+                                "<div class='col border border-2 border-end-5 border-top-0 border-bottom-0 border-start-0 text-center'>" + this.itemName + "</div>" +
+                                "<div class='col border border-2 border-end-5 border-top-0 border-bottom-0 border-start-0 text-center'>" + this.create_time + "</div>" +
+                                "<div class='col border border-2 border-end-5 border-top-0 border-bottom-0 border-start-0 text-center'>" + this.status + "</div>" +
+                                "<div class='col text-center'>" + this.city + ", " + this.state + "</div>" +
                             "</button></h2>" +
-                            "<div id='collapse" + count + "' class='accordion-collapse collapse' aria-labelledby='heading" + count + "' data-bs-parent='#ticketList'>" +
+                            "<div id='collapse" + this.t_id + "' class='accordion-collapse collapse' aria-labelledby='heading" + this.t_id + "' data-bs-parent='#ticketList'>" +
                                 "<div class='accordion-body'>" + 
+                                    "<div class='row' id='employeeFunctions" + this.t_id + "'>" +
+                                    "</div><br>" +
                                     "<div class='row'>" + 
                                         "<div class='col'>" + 
+<<<<<<< Updated upstream
                                             "<svg id='my_dataviz' width='440' height='300'></svg>" + 
+=======
+                                             //"<svg id='my_dataviz' width='440' height='300'></svg> +"
+                                             "<div id='map'></div>" +
+>>>>>>> Stashed changes
                                         "</div>" + 
                                         "<div class='col'>" +
                                             "<div class='row row-cols-2'>" + 
@@ -63,20 +70,19 @@ function generateList(userType, userID)
                                                 "<div class='col border border-2'><strong>Event</strong></div>" +
                                                 "<div class='col border border-2'><strong>Location</strong></div>" +
                                             "</div>" +
-                                            "<div id='" + count + "history'></div>" +
+                                            "<div id='" + this.t_id + "history'></div>" +
                                         "</div>" +
-                                    "</div>" +
-                                "</div>" +
+                                    "</div>");
+                                $("#ticketList").append("</div>" +
                             "</div>" +
-                        "</div>"
-                    );
+                    "</div>");
                     var ticketID = this.t_id;
-                    var historyDiv = count + "history";
+                    var historyDiv = this.t_id + "history";
                     jQuery.each(ticketStatusResponse, function(){
                         if(this.t_id == ticketID)
                         {
                             $("#" + historyDiv).append("<div class='row' row-cols-3>" +
-                                "<div class='col border border-2'>" + this.closed_time + "</div>" +
+                                "<div class='col border border-2'>" + this.timestamp + "</div>" +
                                 "<div class='col border border-2'>" + this.event + "</div>" +
                                 "<div class='col border border-2'>" + this.location + "</div>" +
                                 "</div>"
@@ -92,7 +98,61 @@ function generateList(userType, userID)
                     {
                         closedCount++;
                     }
+<<<<<<< Updated upstream
                     generateMap();
+=======
+
+                    //if employee is logged in, show update buttons
+                    if (userType == "E")
+                    {
+                        $("#employeeFunctions" + this.t_id).append("" +
+                            "<div class='col'>" +
+                                "<form id='updateTicketForm'>" +
+                                    "<input type='hidden' name='status' value='Picked Up'>" +
+                                    "<div class='row row-cols-2'>" +
+                                        "<div class='col'>" +
+                                            "<div class='justify-content-center d-flex align-items-center' id='status" + this.t_id + "'>" +
+                                                "Ticket Status: At " + this.last_location +
+                                            "</div>" +
+                                        "</div>" +
+                                        "<div class='col' id='updateButtonCol" + this.t_id + "'>" +
+                                            "<button class='btn btn-primary' type='button' onclick='getTicketUpdate(" + this.t_id + ")' id='updateTicket" + this.t_id + "' value='test'>Update Status</button>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</form>" +
+                            "</div><br>"
+                        );
+
+                        if (this.status == "Open" || this.status == "Awaiting Delivery")
+                        {
+                            $("#status" + this.t_id).attr('class', 'col border rounded bg-primary text-light p-1');
+                            $("#status" + this.t_id).html("Ticket Status: At " + this.last_location);
+
+                            $("#updateTicket" + this.t_id).attr('class', 'btn btn-primary');
+                            $("#updateTicket" + this.t_id).html("Picked up from " + this.last_location);
+                            $("#updateTicket" + this.t_id).attr('value', 'In Transit');
+                        }
+                        else if (this.status == "In Transit")
+                        {
+                            $("#status" + this.t_id).attr('class', 'col border rounded bg-warning text-dark p-1');
+                            $("#status" + this.t_id).html("Ticket Status: In Transit");
+
+                            $("#updateTicket" + this.t_id).attr('class', 'btn btn-success');
+                            $("#updateTicket" + this.t_id).html("Dropped off to " + this.city + ", " + this.state);
+                            $("#updateTicket" + this.t_id).attr('value', 'Delivered');
+                        }
+                        else if (this.status == "Delivered")
+                        {
+                            $("#status" + this.t_id).attr('class', 'col border rounded bg-success text-light p-1');
+                            $("#status" + this.t_id).html("Ticket Status: Delivered");
+
+                            $("#updateButtonCol" +this.t_id).html("");
+                        }
+                    }
+                    //generateMap();
+                    var mapDest = this.city + ", " + this.state;
+                    initMap();
+>>>>>>> Stashed changes
                 });
                 $("#allTicketsCount").text(count);
                 $("#openTicketsCount").text(openCount);

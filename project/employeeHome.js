@@ -17,6 +17,43 @@ $(document).ready(function(){
     generateList(userType, userID);
 });
 
+//gets ticket update from button click
+function getTicketUpdate(t_id){
+    console.log("Button for ticket " + t_id + " pressed.");
+    var status = $("#updateTicket" + t_id).val();
+    console.log("Status for ticket " + t_id + " is " + status);
+
+    
+    updateTicketStatus(t_id, status).done(function(response){
+        console.log(response);
+    });
+}
+
+//changes status of ticket in database and creates a status history event
+function updateTicketStatus(t_id, status){
+    return $.ajax({
+        url: 'updateTicketStatus.php',
+        dataType: 'text',
+        type: 'POST',
+        data: {t_id, status},
+        success: function (response, status) {
+            console.log('AJAX Success.');
+            console.log(status);
+            return response;
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log('AJAX Error:' + textStatus);
+            return "Error " . textStatus;
+        }
+    });
+}
+
+
+//gets form details from ticket update
+function getUpdateTicketFormDetails(){
+
+}
+
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);

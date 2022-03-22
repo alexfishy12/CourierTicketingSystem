@@ -69,10 +69,10 @@
                                     $t_id = $row['t_id'];
                                 }
 
-                                $sqlTicketStatusHistory = "insert into TicketStatusHistory(t_id, closed_time, event, city, state, latitude, longitude) values (?, '$now', 'Ticket Submitted', ?, ?, ?, ?);";
+                                $sqlTicketStatusHistory = "insert into TicketStatusHistory(t_id, timestamp, event, city, state) values (?, '$now', 'Ticket Submitted', ?, ?);";
                                 if ($stmt4 = $con->prepare($sqlTicketStatusHistory))
                                 {
-                                    $stmt4->bind_param("issdd", $t_id, $fCity, $fState, $fLatitude, $fLongitude);
+                                    $stmt4->bind_param("iss", $t_id, $fCity, $fState);
                                     if($stmt4->execute())
                                     {
                                         echo "Ticket submitted.";

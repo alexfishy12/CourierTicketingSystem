@@ -26,7 +26,7 @@ $(document).ready(function(){
         e.preventDefault();
         getFormDetails();
         $("#createTicketModal").modal('hide');
-        $("#createTicket").reset();
+        $("#createTicket").trigger('reset');
     });
 });
 
