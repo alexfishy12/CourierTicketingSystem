@@ -122,12 +122,12 @@ function checkLogin(username, password){
 
 function goHomeC()
 {
-    window.location.replace("http://localhost/CPS4961/customerHome.html");
+    window.location.href("customerHome.html");
 }
 
 function goHomeE()
 {
-    window.location.replace("http://localhost/CPS4961/employeeHome.html");
+    window.location.href("employeeHome.html");
 }
 
 function sleep(ms) {
