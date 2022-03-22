@@ -67,7 +67,7 @@ function createAccount(fn, ln, e, u, p, a, c, s, z){
 
 function goHome()
 {
-    window.location.href("customerHome.html");
+    window.location.href = "customerHome.html";
 }
 
 function sleep(ms) {
