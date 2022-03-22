@@ -122,12 +122,12 @@ function checkLogin(username, password){
 
 function goHomeC()
 {
-    window.location.href("customerHome.html");
+    window.location.href = "customerHome.html";
 }
 
 function goHomeE()
 {
-    window.location.href("employeeHome.html");
+    window.location.href = "employeeHome.html";
 }
 
 function sleep(ms) {
