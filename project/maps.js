@@ -1,4 +1,3 @@
-
 function initMap() {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -29,7 +28,7 @@ function initMap() {
           query: 'newark, nj',
         },
         destination: {
-            query: 'union, nj',
+            query: 'montvale, nj',
           //query: document.getElementById("end").value,
         },
         travelMode: google.maps.TravelMode.DRIVING,
