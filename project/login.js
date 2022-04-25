@@ -57,7 +57,14 @@ function getFormDetails(){
                 if(isChecked == "C"){    
                     sleep(2000).then(() => goHomeC());
                 }else if(isChecked == "E"){
-                    sleep(2000).then(() => goHomeE());
+                    if(userID == 1)
+                    {
+                        sleep(2000).then(() => goHomeA());
+                    }
+                    else
+                    {
+                        sleep(2000).then(() => goHomeE());
+                    }
                 }
             }
         });
@@ -118,6 +125,11 @@ function checkLogin(username, password){
     else{
         $('#message').text("Please select Employee or Customer.");
     }
+}
+
+function goHomeA()
+{
+    window.location.href = "admin/index.html";
 }
 
 function goHomeC()

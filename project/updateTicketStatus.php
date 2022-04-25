@@ -61,11 +61,25 @@
                 else if ($status == "Delivered")
                 {
                     $event = "Delivered to ".$street.", ".$city.", ".$state;
-                    $deliveryLocation = $city.", ".$state;
+                    $deliveryLocation = $street. ", ". $city.", ".$state;
                     $submitTicket = "update Tickets set status=?, last_location=? where t_id=?";
                     if ($stmt2 = $con->prepare($submitTicket))
                     {
                         $stmt2->bind_param("ssi", $status, $deliveryLocation, $t_id);
+                    }
+                    else
+                    {
+                        echo mysqli_error($con);
+                    }
+                }
+                else if ($status == "Delivery Cancelled")
+                {
+                    $event = "Delivery cancelled. Returned to " . $lastLocation;
+                    $submitTicket = "update Tickets set status=?, last_location=?, emp_id=? where t_id=?";
+                    if ($stmt2 = $con->prepare($submitTicket))
+                    {
+                        $newStatus = "Open";
+                        $stmt2->bind_param("ssii", $newStatus, $lastLocation, 1, $t_id);
                     }
                     else
                     {
@@ -79,9 +93,10 @@
                     if ($status == "In Transit")
                     {
                         $lastLocationArray = explode(', ', $lastLocation);
-                        $lastCity = $lastLocationArray[0];
-                        $lastState = $lastLocationArray[1];
-                        echo $lastLocation." ".$lastCity." ".$lastState;
+                        $lastStreet = $lastLocationArray[0];
+                        $lastCity = $lastLocationArray[1];
+                        $lastState = $lastLocationArray[2];
+                        echo $lastStreet." ".$lastCity." ".$lastState;
 
                         $sqlTicketStatusHistory = "insert into TicketStatusHistory(t_id, timestamp, event, city, state) values (?, '$now', ?, ?, ?);";
                         if ($stmt4 = $con->prepare($sqlTicketStatusHistory))
@@ -95,6 +110,20 @@
                         if ($stmt4 = $con->prepare($sqlTicketStatusHistory))
                         {
                             $stmt4->bind_param("isss", $t_id, $event, $city, $state);
+                        }
+                    }
+                    else if ($status == "Delivery Cancelled")
+                    {
+                        $lastLocationArray = explode(', ', $lastLocation);
+                        $lastStreet = $lastLocationArray[0];
+                        $lastCity = $lastLocationArray[1];
+                        $lastState = $lastLocationArray[2];
+                        echo $lastStreet." ".$lastCity." ".$lastState;
+
+                        $sqlTicketStatusHistory = "insert into TicketStatusHistory(t_id, timestamp, event, city, state) values (?, '$now', ?, ?, ?);";
+                        if ($stmt4 = $con->prepare($sqlTicketStatusHistory))
+                        {
+                            $stmt4->bind_param("isss", $t_id, $event, $lastCity, $lastState);
                         }
                     }
                     if($stmt4->execute())

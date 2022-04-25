@@ -26,7 +26,19 @@ function getTicketUpdate(t_id){
     
     updateTicketStatus(t_id, status).done(function(response){
         console.log(response);
+        reloadTIcket(t_id);
     });
+}
+
+function cancelDelivery(t_id){
+    console.log("Cancel Delivery requested for ticket #: " + t_id);
+    var status = $("#cancelDelivery" + t_id).val();
+    console.log("Status for ticket #: " + t_id + " is: " + status);
+
+    updateTicketStatus(t_id, status).done(function(response){
+        console.log(response);
+        reloadTIcket(t_id);
+    })
 }
 
 //changes status of ticket in database and creates a status history event
