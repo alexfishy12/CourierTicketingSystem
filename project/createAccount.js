@@ -50,7 +50,7 @@ function createAccount(fn, ln, e, u, p, a, c, s, z){
     console.log('createAccount function executing...');
     //use jQuery PLEASE    
     return $.ajax({
-        url: 'createUser.php',
+        url: '/api/createAccount',
         dataType: 'text',
         type: 'POST',
         data: {fname: fn, lname: ln, email: e, username: u, password: p, address: a, city: c, state: s, zipcode: z},

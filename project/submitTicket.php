@@ -40,14 +40,12 @@
                 $fState;
                 $fLatitude;
                 $fLongitude;
-                $resultItemFacility = mysqli_query($con, "select city, state, latitude, longitude, CONCAT(f.city, ', ', f.state) as location from Facility f left join Inventory i on f.f_id=i.f_id where i.inv_id='$inv_id'");
+                $resultItemFacility = mysqli_query($con, "select city, state, CONCAT(f.street, ', ', f.city, ', ', f.state) as location from Facility f left join Inventory i on f.f_id=i.f_id where i.inv_id='$inv_id'");
                 while($row=mysqli_fetch_array($resultItemFacility))
                 {
                     $fLocation = $row['location'];
                     $fCity = $row['city'];
                     $fState = $row['state'];
-                    $fLatitude = $row['latitude'];
-                    $fLongitude = $row['longitude'];
                 }
                 //insert statement which uses c_id and post variables to submit ticket
                 $submitTicket = "insert into Tickets (c_id, inv_id, inv_quantity, emp_id, create_time, status, last_location) values (?, ?, ?, 1, '$now', ?, ?);";
