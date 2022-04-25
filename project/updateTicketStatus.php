@@ -75,11 +75,11 @@
                 else if ($status == "Delivery Cancelled")
                 {
                     $event = "Delivery cancelled. Returned to " . $lastLocation;
-                    $submitTicket = "update Tickets set status=?, last_location=? where t_id=?";
+                    $submitTicket = "update Tickets set status=?, last_location=?, emp_id=? where t_id=?";
                     if ($stmt2 = $con->prepare($submitTicket))
                     {
                         $newStatus = "Open";
-                        $stmt2->bind_param("ssi", $newStatus, $lastLocation, $t_id);
+                        $stmt2->bind_param("ssii", $newStatus, $lastLocation, 1, $t_id);
                     }
                     else
                     {
